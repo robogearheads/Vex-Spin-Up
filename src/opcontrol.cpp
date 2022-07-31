@@ -30,7 +30,10 @@ void opcontrol(){
 		RF.move(controller.get_analog(ANALOG_RIGHT_Y));
 		RB.move(controller.get_analog(ANALOG_RIGHT_Y));
 
-
+        //Constantly print odom values
+        pros::lcd::print(0, "x is %f", x);
+        pros::lcd::print(1, "y is %f", y);
+        pros::lcd::print(2, "heading is %f", heading*180/3.14159265359);
 
         //Next subsystem
         pros::delay(20);
