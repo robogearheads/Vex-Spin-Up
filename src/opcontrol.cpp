@@ -7,6 +7,7 @@
 #include "setup/util/misc.h"
 #include "setup/util/MovementFunctions.h"
 #include "setup/util/odometry.h"
+#include "setup/util/PurePursuit.h"
 
 //Driver control code
 void opcontrol(){
@@ -24,8 +25,9 @@ void opcontrol(){
     LeftRotation.reset_position();
     BackRotation.reset_position();
 
-    //Start odometry task
+    //Start tasks
     pros::Task Odometry(odometry);
+    pros::Task PurePursuit(pure_pursuit_step);
 
     while(1){
         //Drive code
@@ -37,8 +39,8 @@ void opcontrol(){
         //Flywheel Button
         if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1))
         {
-            FW1.move(125);
-            FW2.move(125); 
+            FW1.move(115);
+            FW2.move(115); 
         }
         if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
         {
@@ -55,6 +57,7 @@ void opcontrol(){
         pros::lcd::print(0, "x is %f", x);
         pros::lcd::print(1, "y is %f", y);
         pros::lcd::print(2, "heading is %f", heading*180/3.14159265359);
+        pros::lcd::print(3, "temp is %f", FW1.get_temperature());
 
         //Next subsystem
         pros::delay(20);
