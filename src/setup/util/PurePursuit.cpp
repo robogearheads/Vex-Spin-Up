@@ -12,10 +12,13 @@ int sgn(double num) {
   }
 }
 
-void newPath(std::vector<double[2]> newPathVar) {
+/* b r o k e n 
+void newPath(std::vector<double> newPathVarX, std::vector<double> newPathVarY) {
     LFindex = 0;
-    path = newPathVar;
+    pathX = newPathVarX;
+    pathY = newPathVarY;
 }
+*/
 
 // pt to pt distance
 double pt_to_pt_distance(double pt1[], double pt2[]) {
@@ -60,12 +63,12 @@ void pure_pursuit_step() {
   bool intersectFound = false;
   int startingIndex = lastFoundIndex;
 
-  for (int i = startingIndex; i < path.size() - 1; i++) { //how tf do you find the length of an array??
+  for (int i = startingIndex; i < pathX.size() - 1; i++) { //how do you find the length of an array??
     // beginning of line-circle intersection code
-    double x1 = path.at(i)[0] - currentX;
-    double y1 = path.at(i)[1] - currentY;
-    double x2 = path.at(i+1)[0] - currentX;
-    double y2 = path.at(i+1)[1] - currentY;
+    double x1 = pathX.at(i) - currentX;
+    double y1 = pathY.at(i) - currentY;
+    double x2 = pathX.at(i+1) - currentX;
+    double y2 = pathY.at(i+1) - currentY;
     double dx = x2 - x1;
     double dy = y2 - y1;
     double dr = sqrt(pow(dx, 2) + pow(dy, 2));
@@ -86,10 +89,10 @@ void pure_pursuit_step() {
       double sol_pt2[2] = {sol_x2 + currentX, sol_y2 + currentY};
       // end of line-cirle intersection code
 
-      double minX = std::min(path.at(i)[0], path.at(i+1)[0]);
-      double minY = std::min(path.at(i)[1], path.at(i+1)[1]);
-      double maxX = std::max(path.at(i)[0], path.at(i+1)[0]);
-      double maxY = std::max(path.at(i)[1], path.at(i+1)[1]);
+      double minX = std::min(pathX.at(i), pathX.at(i+1));
+      double minY = std::min(pathY.at(i), pathY.at(i+1));
+      double maxX = std::max(pathX.at(i), pathX.at(i+1));
+      double maxY = std::max(pathY.at(i), pathY.at(i+1));
 
       // if one or both of the solutions are in range
       if (((minX <= sol_pt1[0] <= maxX) && (minY <= sol_pt1[1] <= maxY)) ||
@@ -102,8 +105,9 @@ void pure_pursuit_step() {
             ((minX <= sol_pt2[0] <= maxX) && (minY <= sol_pt2[1] <= maxY))) {
           // make decision by comparing the distance between intersections and
           // the next point in path
-          if (pt_to_pt_distance(sol_pt1, path.at(i + 1)) <
-              pt_to_pt_distance(sol_pt2, path.at(i + 1))) {
+          double tempPoint [2] = {pathX.at(i + 1), pathY.at(i + 1)};
+          if (pt_to_pt_distance(sol_pt1, tempPoint) <
+              pt_to_pt_distance(sol_pt2, tempPoint)) {
             // goalPt = sol_pt1
             std::copy(std::begin(sol_pt1), std::end(sol_pt1),
                       std::begin(goalPt));
@@ -128,8 +132,9 @@ void pure_pursuit_step() {
 
         // only exit loop if the solution pt found is closer to the next pt in
         // path than the current pos
-        if (pt_to_pt_distance(goalPt, path.at(i + 1)) <
-            pt_to_pt_distance(currentPos, path.at(i + 1))) {
+        double tempPoint [2] = {pathX.at(i + 1), pathY.at(i + 1)};
+        if (pt_to_pt_distance(goalPt, tempPoint) <
+            pt_to_pt_distance(currentPos, tempPoint)) {
           // update lastFoundIndex and exit
           lastFoundIndex = i;
           break;
@@ -146,8 +151,8 @@ void pure_pursuit_step() {
         // no new intersection found, potentially deviated from the path
         // follow path[lastFoundIndex]
         // goalPt = {path[lastFoundIndex][0], path[lastFoundIndex][1]};
-        goalPt[0] = path.at(lastFoundIndex)[0];
-        goalPt[1] = path.at(lastFoundIndex)[1];
+        goalPt[0] = pathX.at(lastFoundIndex);
+        goalPt[1] = pathY.at(lastFoundIndex);
       }
     }
   }
@@ -159,3 +164,7 @@ void pure_pursuit_step() {
   toReturn.lastFoundIndex = lastFoundIndex;
   //return toReturn;
 }
+
+struct arr {
+  double array[2];
+};
