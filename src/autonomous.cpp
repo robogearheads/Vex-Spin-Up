@@ -12,10 +12,10 @@ void autonomous() {
 
     //Call autonomous routines here (use switch case with auton selector)
 
-    std::vector<double> oogaX = {-5, -10, -30, -25, -30};
+    std::vector<double> oogaX = {0, 10, 10, 30, 30, 50};
     //oogaX.push_back({10});
 
-    std::vector<double> oogaY = {5, 20, 30, 15, 0};
+    std::vector<double> oogaY = {10, 10, 30, 30, 50, 50};
     //oogaY.push_back({10});
     //{{0, 0}, {-10, 20}, {-30, 30}, {-25, 15}, {-30, 0}};
 
@@ -27,4 +27,16 @@ void autonomous() {
     pros::delay(1000);
     pros::Task PurePursuit(pure_pursuit_step);
     pros::Task Movement(movePath); 
+
+    while(LFindex < pathX.size()-1){
+        pros::delay(10);
+        pros::lcd::print(5, "LFindex is %f", LFindex);
+    }
+    pros::lcd::print(3, "done");
+    PurePursuit.suspend();
+    Movement.suspend();
+    pathX = {};
+    pathY = {};
+    LFindex = 0;
+
 }

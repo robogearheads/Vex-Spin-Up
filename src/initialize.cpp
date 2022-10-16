@@ -12,7 +12,7 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 	//LeftRotation.set_reversed(1);
     //RightRotation.set_reversed(1);
-	LB.set_reversed(1);
+	LF.set_reversed(1);
 
 	//pros::lcd::register_btn1_cb(on_center_button);
 }
