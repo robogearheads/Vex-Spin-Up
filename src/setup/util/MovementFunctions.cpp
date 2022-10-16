@@ -43,11 +43,12 @@ void movePath() {
   double turn_kI = 0;   // 0.5
   double turn_kD = 1.2; // 2
 
-  double turnEffect = 0.4;
+  double turnEffect = 4;
   double fwdEffect = 0.35;
 
   while (true) { // add counter back later
     // Calculating distances
+    //pros::lcd::print(5, "moving");
     double targetAngle = getAngle(goalPt[0], goalPt[1]);
     forwardDistance = getLength(goalPt[0], goalPt[1]);
 
@@ -86,7 +87,7 @@ void movePath() {
     double leftPower = fwdEffect * fwdPower + turnEffect * turnPower;
     double rightPower = fwdEffect * fwdPower - turnEffect * turnPower;
 
-    while (leftPower < -200 || leftPower > 200 || rightPower < -200 || rightPower > 200) {
+    while (leftPower < -600 || leftPower > 600 || rightPower < -600 || rightPower > 600) {
       double scalingFactor = 1;
       scalingFactor = scalingFactor + 0.1;
       leftPower = leftPower / scalingFactor;
@@ -94,15 +95,14 @@ void movePath() {
       pros::delay(2);
     }
 
-    LF.move_velocity(leftPower);
-    LB.move_velocity(leftPower);
-    RF.move_velocity(rightPower);
-    RB.move_velocity(rightPower);
+    LF.move_velocity(leftPower/2);
+    LB.move_velocity(leftPower/2);
+    RF.move_velocity(rightPower/2);
+    RB.move_velocity(rightPower/2);
 
-    pros::lcd::print(4, "turnPower is %f", turnPower);
-    pros::lcd::print(5, "fwdPower is %f", fwdPower);
-    pros::lcd::print(6, "leftPower is %f", leftPower);
-    pros::lcd::print(7, "rightPower is %f", rightPower);
+    //pros::lcd::print(4, "turnPower is %f", turnPower);
+    //pros::lcd::print(5, "fwdPower is %f", fwdPower);
+    //pros::lcd::print(6, "leftPower is %f", leftPower);
 
     pros::delay(15);
   }

@@ -27,7 +27,7 @@ void opcontrol(){
 
     //Start tasks
     pros::Task Odometry(odometry);
-    pros::Task PurePursuit(pure_pursuit_step);
+    //pros::Task PurePursuit(pure_pursuit_step);
 
     while(1){
         //Drive code
@@ -47,11 +47,6 @@ void opcontrol(){
             FW1.move(0);
             FW2.move(0); 
         }
-
-
-
-
-
 
         //Constantly print odom values
         pros::lcd::print(0, "x is %f", x);

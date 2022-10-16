@@ -52,7 +52,7 @@ void odometry(){
         double backTotal = backValue*CONVERSION_FACTOR;
 
         //Determine absolute heading
-        double heading = heading_initial + (leftTotal - rightTotal)/(leftOffset + rightOffset);
+        heading = heading_initial + (leftTotal - rightTotal)/(leftOffset + rightOffset);
 
         //Calculate change in angle and update previous value
         double delta_theta = heading - thetaPrev;
