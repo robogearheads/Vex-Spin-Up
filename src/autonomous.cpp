@@ -6,6 +6,17 @@
 #include "setup/util/odometry.h"
 #include "setup/util/PurePursuit.h"
 
+extern int selection;
+ extern char* titles[];
+
+ // functions are located autoroutine.cpp
+
+ extern void RollerFront();
+ extern void RollerSide();
+ extern void SinglePlayer();
+ extern void Skills();
+
+
 void autonomous() {
     //Start tasks
     pros::Task Odometry(odometry);
@@ -39,4 +50,37 @@ void autonomous() {
     pathY = {};
     LFindex = 0;
 
+    //Actual auton stuff - selector
+    pros::lcd::print(2, "running auton");
+	switch(selection) {
+      case 0 :
+            pros::lcd::print(4, "Script#: %d\n", selection);
+            pros::lcd::print(5, titles[selection]);
+            RollerFront();
+        break;
+
+       case 1 :
+             pros::lcd::print(4, "Script#: %d\n", selection);
+             pros::lcd::print(5, titles[selection]);
+             RollerSide();
+          break;
+
+       case 2 :
+             pros::lcd::print(4, "Script#: %d\n", selection);
+             pros::lcd::print(5, titles[selection]);
+             SinglePlayer();
+          break;
+
+      case 3 :
+             pros::lcd::print(4, "Script#: %d\n", selection);
+             pros::lcd::print(5, titles[selection]);
+             Skills();
+          break;
+
+    default :
+             // this should never happen as selection is alwasy inialized as 0
+             // does the case of '0' is in essence the defualt.
+          break;
+  
+    }
 }

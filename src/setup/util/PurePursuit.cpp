@@ -40,20 +40,20 @@ struct purePursuitReturn {
 // variables
 // double currentPos[2] = {x, y};
 double currentHeading = heading;
-double lookAheadDis = 0.8;
-double linearVel = 100;
+// double lookAheadDis = 0.8; //Remove - duplicate variable defined in while loop
+double linearVel = 100; //Remove - not using
 //????
-bool using_rotation = false;
+bool using_rotation = false;  //Are we using this?  If not, remove.
 
 std::vector<double> pathX;
 std::vector<double> pathY;
 
-double goalPt[2];
+double goalPt[2];  //Path is made up of points, goalpoints are intermediary locations being calculated every 10 ms
 
-int LFindex;
+int LFindex; //last found index.  Its the last path point traversed
 
-double while_counter = 0;
-double for_counter = 0;
+double while_counter = 0; //debug counter, not being used
+double for_counter = 0;  //debug counter, not being used
 
 // double path[][2];
 
@@ -61,10 +61,10 @@ void pure_pursuit_step() {
   while (true) {
     // ranges from 0.7 ft to 1.5 ft
     // Using distance in inches
-    double lookAheadDis = 12;
+    double lookAheadDis = 12; 
 
     // extract currentX and currentY
-    double currentX = x;
+    double currentX = x; //Are currentX and currentY being used?  Or are we using x and y directly?
     double currentY = y;
 
     // used for loop to find intersection
@@ -74,20 +74,20 @@ void pure_pursuit_step() {
     for (int i = startingIndex; i < pathX.size() - 1;
          i++) { // how do you find the length of an array??
       // beginning of line-circle intersection code
-
-      double x1 = pathX.at(i) - currentX;
+      //These calculations make sense if you view the diagram that goes with it.  For now, accept it!
+      double x1 = pathX.at(i) - currentX; //distance to bridge to
       double y1 = pathY.at(i) - currentY;
-      double x2 = pathX.at(i + 1) - currentX;
+      double x2 = pathX.at(i + 1) - currentX; //distance to bridge to the point after this one
       double y2 = pathY.at(i + 1) - currentY;
       double dx = x2 - x1;
       double dy = y2 - y1;
-      double dr = sqrt(pow(dx, 2) + pow(dy, 2));
+      double dr = sqrt(pow(dx, 2) + pow(dy, 2)); 
       double D = x1 * y2 - x2 * y1;
       double discriminant = pow(lookAheadDis, 2) * pow(dr, 2) - pow(D, 2);
 
       // extra
       double dr2 = dr * dr;
-      if (discriminant >= 0) {
+      if (discriminant >= 0) {  //This means there is a intersection point between the path and the lookahead distance radius
         double sol_x1 = (D * dy + sgn(dy) * dx * sqrt(discriminant)) / dr2;
         double sol_x2 = (D * dy - sgn(dy) * dx * sqrt(discriminant)) / dr2;
         double sol_y1 = (-D * dx + fabs(dy) * sqrt(discriminant)) / dr2;
@@ -98,6 +98,7 @@ void pure_pursuit_step() {
         double sol_pt2[2] = {sol_x2 + currentX, sol_y2 + currentY};
         // end of line-cirle intersection code
 
+        //check if there is a solution and which one is valid
         double minX = std::min(pathX.at(i), pathX.at(i + 1));
         double minY = std::min(pathY.at(i), pathY.at(i + 1));
         double maxX = std::max(pathX.at(i), pathX.at(i + 1));
@@ -127,7 +128,7 @@ void pure_pursuit_step() {
             }
           }
 
-          // if not both solutions are in range, take the one thats in range
+          // if one solutions is in range, take the one thats in range
           else {
             // if solution pt1 is in range, set that as goal point
             //pros::lcd::print(2, "1 solution found");
@@ -160,7 +161,7 @@ void pure_pursuit_step() {
             pros::lcd::print(2, "Putting LFIndex to i + 1value of: %f", i + 1);
 
           }
-        }
+        } //end if one or more solutions are in range
 
         // if no solutions are in range
         else {
@@ -169,7 +170,7 @@ void pure_pursuit_step() {
           // no new intersection found, potentially deviated from the path
           // follow path[lastFoundIndex]
           // goalPt = {path[lastFoundIndex][0], path[lastFoundIndex][1]};
-          goalPt[0] = pathX.at(LFindex);
+          goalPt[0] = pathX.at(LFindex); //If no goal point can be calculated, go on to the next point
           goalPt[1] = pathY.at(LFindex);
           //pros::lcd::print(0, "x solution is %f", pathX.at(LFindex));
           //pros::lcd::print(1, "y solution is %f", pathY.at(LFindex));
@@ -178,7 +179,7 @@ void pure_pursuit_step() {
       for_counter ++;
       pros::delay(10);
       //pros::lcd::print(0, "for counter is %f", for_counter);
-    }
+    } // end for
 /*
     // create and return struct
     struct purePursuitReturn toReturn;
@@ -193,7 +194,7 @@ void pure_pursuit_step() {
     while_counter ++;
     //pros::lcd::print(7, "while counter is %f", while_counter);
     pros::delay(10);
-  }
+  } //end while
 }
 
 struct arr {
