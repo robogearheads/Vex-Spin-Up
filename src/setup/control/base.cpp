@@ -3,18 +3,18 @@
 #include "pros/rotation.hpp"
 
 //Drive Motors
-pros::Motor RB(12, MOTOR_GEARSET_6, 0, MOTOR_ENCODER_DEGREES),
-            RF(19, MOTOR_GEARSET_6, 0, MOTOR_ENCODER_DEGREES),
-            LB(13, MOTOR_GEARSET_6, 1, MOTOR_ENCODER_DEGREES),
-            LF(20, MOTOR_GEARSET_6, 1, MOTOR_ENCODER_DEGREES);
+pros::Motor RB(4, MOTOR_GEARSET_6, 0, MOTOR_ENCODER_DEGREES),
+            RF(8, MOTOR_GEARSET_6, 0, MOTOR_ENCODER_DEGREES),
+            LB(12, MOTOR_GEARSET_6, 1, MOTOR_ENCODER_DEGREES),
+            LF(14, MOTOR_GEARSET_6, 1, MOTOR_ENCODER_DEGREES);
             
 //Inertial Sensor
-//pros::Imu Inertial(18);
+pros::Imu Inertial(18);
 
 //Encoders
-pros::Rotation LeftRotation(18); 
-pros::Rotation RightRotation(14); 
-pros::Rotation BackRotation(1);
+pros::Rotation LeftRotation(2); 
+pros::Rotation RightRotation(18); 
+pros::Rotation BackRotation(9);
 
 //GPS Sensor
 //pros::GPS GPSSensor(5, -0.2032, 0);
