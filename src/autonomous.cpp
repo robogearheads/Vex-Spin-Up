@@ -5,6 +5,7 @@
 #include "setup/util/MovementFunctions.h"
 #include "setup/util/odometry.h"
 #include "setup/util/PurePursuit.h"
+#include "setup/control/launcher.h"
 
 extern int selection;
  extern char* titles[];
@@ -20,7 +21,8 @@ extern int selection;
 void autonomous() {
     //Start tasks
     pros::Task Odometry(odometry);
-
+    pros::Task turretAim(autoAim);
+/*
     //Call autonomous routines here (use switch case with auton selector)
 
     std::vector<double> oogaX = {0, 10, 10, 30, 30, 50};
@@ -49,7 +51,7 @@ void autonomous() {
     pathX = {};
     pathY = {};
     LFindex = 0;
-
+*/
     //Actual auton stuff - selector
     pros::lcd::print(2, "running auton");
 	switch(selection) {

@@ -41,20 +41,20 @@ void opcontrol() {
     LB.move(controller.get_analog(ANALOG_LEFT_Y));
     RF.move(controller.get_analog(ANALOG_RIGHT_Y));
     RB.move(controller.get_analog(ANALOG_RIGHT_Y));
-/*
+
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
       FW1.move_velocity(599);
       FW2.move_velocity(599);
     } 
     else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-      FW1.move_velocity(400);
-      FW2.move_velocity(400);
+      FW1.move_velocity(450);
+      FW2.move_velocity(450);
     } 
     else {
       FW1.move_velocity(0);
       FW2.move_velocity(0);
     }
-*/
+
     if (turret_controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
         Turret.move_velocity(-190);
     }

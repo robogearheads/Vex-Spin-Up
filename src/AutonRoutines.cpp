@@ -3,12 +3,24 @@
 #include "setup/control/base.h"
 #include "setup/control/intake.h"
 #include "setup/control/launcher.h"
+#include "setup/util/odometry.h"
 
 #include "setup/util/misc.h"
 
 #include "setup/util/MovementFunctions.h"
 
 void RollerFront(){
+    setPosition(-57, 42, 90*(M_PI/180));
+    pros::delay(300);
+    Inertial.set_rotation(90);
+    pros::delay(300);
+    goForwardPID(-2);
+    pros::delay(1000); //shoot and do roller
+    forwardForDistance(5, 300);
+    moveToPoint(-24, 0); //while intaking
+    pros::delay(1000); //shoot
+    moveToPoint(24, -45);
+    //shoot
     /*
     Spin roller
     Move back a tiny bit

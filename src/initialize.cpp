@@ -64,11 +64,6 @@ void on_right_button() {
 void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
-	//LeftRotation.set_reversed(1);
-    //RightRotation.set_reversed(1);
-	
-
-	//pros::lcd::register_btn1_cb(on_center_button);
 }
 
 /**
@@ -88,6 +83,8 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
+	RightRotation.set_reversed(1);
+	BackRotation.set_reversed(1);
 	pros::lcd::set_text(1, "Autonomous Mode Select");
 
 

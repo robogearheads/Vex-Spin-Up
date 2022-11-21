@@ -188,7 +188,7 @@ void preciseTurnPID(double targetTheta) {
 		double kD = 1.2; //2
 
 		while((error < -0.003 || error > 0.003) && counter < 400){ //Was -0.2
-			error = (targetTheta - Inertial.get_heading());
+			error = (targetTheta - (heading* 180 / 3.14159265359));
       pros::lcd::print(0, "error is %.3f", error);
       if(error < -180){
         error = error + 360;
@@ -231,21 +231,13 @@ void goForwardPID(double distance){
 	double kI = 0.07; //0.1
 
   //current motor values
-  double LFcurrent = LF.get_position() * CONVERSION_FACTOR;
-  double LBcurrent = LB.get_position() * CONVERSION_FACTOR;
-  double RFcurrent = RF.get_position() * CONVERSION_FACTOR;
-  double RBcurrent = RB.get_position() * CONVERSION_FACTOR;
+  double current = LeftRotation.get_position() * CONVERSION_FACTOR;
 
 	while ((error > 0.3 || error < -0.3) && counter < 200){
-    //forward distances (motors separate)
-    double LFdistance = LF.get_position()*CONVERSION_FACTOR - LFcurrent;
-    double LBdistance = LF.get_position()*CONVERSION_FACTOR - LFcurrent;
-    double RFdistance = LF.get_position()*CONVERSION_FACTOR - LFcurrent;
-    double RBdistance = LF.get_position()*CONVERSION_FACTOR - LFcurrent;
 
-    double avgDistanceTraveled = (LFdistance + LBdistance + RFdistance + RBdistance)/4;
-
-		error = distance - avgDistanceTraveled;
+    //forward distance
+    double DistanceTraveled = LeftRotation.get_position()*CONVERSION_FACTOR - current;
+		error = distance - DistanceTraveled;
 		pros::lcd::print(4, "error is %.3f", error);
 		double derivative = error - prevError;
 		prevError = error;
@@ -364,21 +356,14 @@ void driverMovement(){
 }
 
 void forwardForDistance(double amount, double speed){
-  double LFcurrent = LF.get_position() * CONVERSION_FACTOR;
-  double LBcurrent = LB.get_position() * CONVERSION_FACTOR;
-  double RFcurrent = RF.get_position() * CONVERSION_FACTOR;
-  double RBcurrent = RB.get_position() * CONVERSION_FACTOR;
+  double current = RightRotation.get_position() * CONVERSION_FACTOR;
 
-  double avgDistanceTraveled = 1;
+  double DistanceTraveled = 1;
   double counter = 0;
 
-  while(avgDistanceTraveled < amount && counter < 350){
-    double LFdistance = LF.get_position()*CONVERSION_FACTOR - LFcurrent;
-    double LBdistance = LF.get_position()*CONVERSION_FACTOR - LFcurrent;
-    double RFdistance = LF.get_position()*CONVERSION_FACTOR - LFcurrent;
-    double RBdistance = LF.get_position()*CONVERSION_FACTOR - LFcurrent;
+  while(DistanceTraveled < amount && counter < 350){
 
-    avgDistanceTraveled = (LFdistance + LBdistance + RFdistance + RBdistance)/4;
+    DistanceTraveled = RightRotation.get_position()*CONVERSION_FACTOR - current;
     forwardVelocity(speed);
 
     counter ++;
