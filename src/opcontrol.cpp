@@ -1,4 +1,5 @@
 #include "main.h"
+#include "init.h"
 
 #include "pros/misc.h"
 #include "setup/control/base.h"
@@ -31,9 +32,9 @@ void opcontrol() {
 
   // Start tasks
   pros::Task Odometry(odometry);
-  //pros::Task Turret(autoAim);
+  pros::Task turretAim(autoAim);
   // pros::Task PurePursuit(pure_pursuit_step);
-  pros::Task turretDisplay(controllerAim);
+  //pros::Task turretDisplay(controllerAim);
 
   while (1) {
     // Drive code
@@ -42,6 +43,7 @@ void opcontrol() {
     RF.move(controller.get_analog(ANALOG_RIGHT_Y));
     RB.move(controller.get_analog(ANALOG_RIGHT_Y));
 
+    //Start/stop flywheels
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
       FW1.move_velocity(599);
       FW2.move_velocity(599);
@@ -50,11 +52,13 @@ void opcontrol() {
       FW1.move_velocity(450);
       FW2.move_velocity(450);
     } 
-    else {
+    else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
       FW1.move_velocity(0);
       FW2.move_velocity(0);
     }
 
+    //Code for manual turret control
+/*
     if (turret_controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
         Turret.move_velocity(-190);
     }
@@ -64,6 +68,21 @@ void opcontrol() {
     else{
         Turret.move_velocity(0);
     }
+*/
+    //Lifts disks up
+    if(turret_controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+        pros::Task task{[=] {
+            liftDisks();
+        }};
+    }
+
+    //Launch (1 at a time)
+    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
+        pros::Task task{[=] {
+            singleLaunch();
+        }}; 
+    }
+
 
     // Constantly print odom values
     pros::lcd::print(0, "x is %f", x);
@@ -71,6 +90,13 @@ void opcontrol() {
     pros::lcd::print(2, "heading is %f", heading * 180 / 3.14159265359);
     pros::lcd::print(3, "temp is %f", FW1.get_temperature());
     pros::lcd::print(4, "turret temp is %f", Turret.get_temperature());
+    if (red == true){
+        pros::lcd::print(5, "opcontrol, running red");
+    }
+    else{
+        pros::lcd::print(5, "opcontrol, running blue");
+    }
+    
 
     // Next subsystem
     pros::delay(20);

@@ -8,6 +8,8 @@
 
 #include "setup/util/misc.h"
 
+#include "init.h"
+
 // Flywheel motors
 pros::Motor FW1(5, MOTOR_GEARSET_6, 1, MOTOR_ENCODER_DEGREES),
     FW2(7, MOTOR_GEARSET_6, 1, MOTOR_ENCODER_DEGREES);
@@ -17,6 +19,9 @@ pros::Motor Turret(1, MOTOR_GEARSET_18, 0, MOTOR_ENCODER_DEGREES);
 
 // Inertial Sensor
 pros::Imu TurretInertial(3);
+
+//Indexer
+pros::ADIDigitalOut Indexer ('B');
 
 
 double launchGetAngle(double pointX, double pointY) { // returns in degrees
@@ -50,8 +55,18 @@ void autoAim() {
   double scale = 2;
 
   while (true) {
-    double targetTheta = launchGetAngle(48, 48); // insert goql pt
-    double distance = launchGetLength(48, 48);   // insert goal pt
+    double targetTheta = 0;
+    double distance = 0;
+    //If running as red
+    if (red == true){
+      double targetTheta = launchGetAngle(48, 48); // insert goql pt
+      double distance = launchGetLength(48, 48);   // insert goal pt
+    }
+    //If running as blue
+    else{
+      double targetTheta = launchGetAngle(-48, -48); // insert goql pt
+      double distance = launchGetLength(-48, -48);   // insert goal pt
+    }
 
     error = (targetTheta - TurretInertial.get_heading());
     if (error < -180) {
@@ -86,6 +101,12 @@ void autoAim() {
     counter++;
     pros::delay(15);
   }
+}
+
+void singleLaunch(){
+  Indexer.set_value(1);
+  pros::delay(200); //will need to be changed based on piston speed
+  Indexer.set_value(0);
 }
 
 void controllerAim(){

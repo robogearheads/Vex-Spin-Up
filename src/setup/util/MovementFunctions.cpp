@@ -187,7 +187,7 @@ void preciseTurnPID(double targetTheta) {
 		double kI = 0; //0.5
 		double kD = 1.2; //2
 
-		while((error < -0.003 || error > 0.003) && counter < 400){ //Was -0.2
+		while((error < -0.01 || error > 0.01) && counter < 400){ //Was -0.003
 			error = (targetTheta - (heading* 180 / 3.14159265359));
       pros::lcd::print(0, "error is %.3f", error);
       if(error < -180){
