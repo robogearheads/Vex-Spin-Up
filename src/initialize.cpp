@@ -2,6 +2,7 @@
 #include "main.h"
 #include "setup/control/base.h"
 #include "setup/util/misc.h"
+#include "setup/control/intake.h"
 
 // array fo scripts descriptions/names displayed in selection menu
 const char *titles[] = {"Roller Front", "Roller Side", "Single Player Mode",
@@ -85,6 +86,7 @@ void on_external_button() {
  */
 void initialize() {
   pros::lcd::initialize();
+
   pros::lcd::set_text(1, "Hello PROS User!");
 }
 

@@ -15,3 +15,6 @@ void autoAim();
 void controllerAim();
 
 void singleLaunch();
+
+extern pros::ADIDigitalOut Expansion1;
+extern pros::ADIDigitalOut Expansion2;

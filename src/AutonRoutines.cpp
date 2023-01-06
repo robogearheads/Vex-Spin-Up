@@ -12,6 +12,8 @@
 #include "init.h"
 
 void RedRollerFront(){
+/*
+    Intake.move_velocity(190);
     setPosition(-57, 42, 90*(M_PI/180));
     pros::delay(300);
     Inertial.set_rotation(90);
@@ -23,19 +25,36 @@ void RedRollerFront(){
     pros::delay(1000); //shoot
     moveToPoint(24, -45);
     pros::delay(1000);//shoot
+    */
+    Intake.move_velocity(-190);
+    goForwardPID(-2);
+    pros::delay(2000);
+    Intake.move_velocity(0);
+    turnPID(15);
+    Intake.move_velocity(190);
+    goForwardPID(36); 
+    turnPID(-20); 
+    FW1.move_velocity(595);
+    FW2.move_velocity(595);
+    Intake.move_velocity(-90);
 }
 
 void RedRollerSide(){
-    /*
-    Move forward
-    Turn right towards roller
-    Go forward a bit until you are touching roller
-    Spin the roller
-    Move back a lil bit
-    Turn towards disk
-    Go forward towards disk and intake the disk
-    Shoot 3 disks while being still
-    */
+    Intake.move_velocity(190);
+    goForwardPID(30); 
+    turnPID(-15); 
+    FW1.move_velocity(595);
+    FW2.move_velocity(595);
+    Intake.move_velocity(-90);
+    pros::delay(2000);
+    FW1.move_velocity(0);
+    FW2.move_velocity(0);
+    Intake.move_velocity(0);
+    turnPID(-45);
+    goForwardPID(-36);
+    Intake.move_velocity(-190);
+    pros::delay(2000);
+    Intake.move_velocity(0);
 }
 
 void RedSinglePlayer(){

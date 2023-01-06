@@ -26,7 +26,6 @@ extern void Skills();
 void autonomous() {
   // Start tasks
   pros::Task Odometry(odometry);
-  pros::Task turretAim(autoAim);
   /*
       //Call autonomous routines here (use switch case with auton selector)
 
