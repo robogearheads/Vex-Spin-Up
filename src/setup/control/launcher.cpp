@@ -15,5 +15,5 @@
 pros::Motor FW1(11, MOTOR_GEARSET_6,0, MOTOR_ENCODER_DEGREES),
     FW2(12, MOTOR_GEARSET_6, 1, MOTOR_ENCODER_DEGREES);
 
-pros::ADIDigitalOut Expansion1 ('A');
-pros::ADIDigitalOut Expansion2 ('B');
+pros::ADIDigitalOut Expansion1 ('C', false);
+pros::ADIDigitalOut Expansion2 ('B', false);

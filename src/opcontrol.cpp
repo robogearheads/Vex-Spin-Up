@@ -47,9 +47,9 @@ void opcontrol() {
     }
     else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
       flywheel_stopped = false;
-      Intake.move_velocity(-190);
-      FW1.move_velocity(550);
-      FW2.move_velocity(550);
+      Intake.move_velocity(-140);
+      FW1.move_velocity(390);
+      FW2.move_velocity(390);
     }
     else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
       FW1.move_velocity(0);
@@ -72,6 +72,14 @@ void opcontrol() {
     else{
       Intake.move_velocity(0);
     }
+
+    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+      turnPID(90);
+    }
+    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)){
+      turnPID(180);
+    }
+
 
     /*
     //Basic shooting
@@ -101,6 +109,9 @@ void opcontrol() {
     pros::lcd::print(2, "heading is %f", heading * 180 / 3.14159265359);
     pros::lcd::print(3, "temp 1 is %f", FW1.get_temperature());
     pros::lcd::print(4, "temp 2 is %f", FW2.get_temperature());
+    pros::lcd::print(5, "intake temp is %f", Intake.get_temperature());
+
+
     
     // Next subsystem
     pros::delay(20);

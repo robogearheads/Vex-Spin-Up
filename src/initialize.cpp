@@ -109,6 +109,7 @@ void disabled() {}
 void competition_initialize() {
   RightRotation.set_reversed(1);
   BackRotation.set_reversed(1);
+
   pros::lcd::set_text(1, "Autonomous Mode Select");
 
   // Write script 0 selection as first choice to screen
