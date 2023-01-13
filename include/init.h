@@ -10,4 +10,8 @@ void on_left_button();
 void on_center_button();
 void on_right_button();
 
+void on_external_button();
+
+extern bool red;
+
 #endif

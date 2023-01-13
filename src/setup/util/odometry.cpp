@@ -82,6 +82,26 @@ void odometry(){
         x = x + global_x_change;
         y = y + global_y_change;
 
+        pros::lcd::print(0, "x is %f", x);
+        pros::lcd::print(1, "y is %f", y);
+        pros::lcd::print(2, "heading is %f", heading * 180 / 3.14159265359);
+
         pros::delay(10);
     }
+}
+
+void setPosition(double x_pos, double y_pos, double heading_pos){
+    x = x_pos;
+    y = y_pos;
+    heading_initial = heading_pos;
+    heading = 0;
+
+    leftPrev = 0;
+    rightPrev = 0;
+    backPrev = 0;
+    thetaPrev = 0;
+
+    LeftRotation.reset_position();
+    RightRotation.reset_position();
+    BackRotation.reset_position();
 }
