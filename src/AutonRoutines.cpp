@@ -58,11 +58,11 @@ void RedRollerSide(){
     FW2.move_velocity(570);
 
     //Rollers
-    goForwardPID(-20);
+    goForwardPID(-15);
     turnPID(0);
     goForwardPID(-2);
     Intake.move_velocity(-190);
-    pros::delay(250);
+    pros::delay(200);
     goForwardPID(2);
     Intake.move_velocity(150);
 
@@ -84,7 +84,7 @@ void RedRollerSide(){
     //Aim and Shoot next disks
     FW1.move_velocity(500);
     FW2.move_velocity(500);
-    turnPID(47);
+    turnPID(47.5);
     pros::delay(100);
     Intake.move_velocity(-130);
     pros::delay(5000);

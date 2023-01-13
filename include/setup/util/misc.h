@@ -3,6 +3,4 @@
 
 extern pros::Controller controller;
 
-extern pros::Controller turret_controller;
-
 extern pros::ADIButton color_selector;

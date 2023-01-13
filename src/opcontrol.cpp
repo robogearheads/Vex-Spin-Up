@@ -48,8 +48,8 @@ void opcontrol() {
     else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
       flywheel_stopped = false;
       Intake.move_velocity(-140);
-      FW1.move_velocity(390);
-      FW2.move_velocity(390);
+      FW1.move_velocity(340);
+      FW2.move_velocity(340);
     }
     else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
       FW1.move_velocity(0);
@@ -72,14 +72,6 @@ void opcontrol() {
     else{
       Intake.move_velocity(0);
     }
-
-    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
-      turnPID(90);
-    }
-    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)){
-      turnPID(180);
-    }
-
 
     /*
     //Basic shooting

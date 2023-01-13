@@ -3,6 +3,3 @@
 
 extern pros::Motor Intake;
 
-extern pros::ADIDigitalOut transSwitch;
-
-void liftDisks();
