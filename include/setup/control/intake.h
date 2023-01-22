@@ -3,3 +3,4 @@
 
 extern pros::Motor Intake;
 
+extern pros::Motor Roller;

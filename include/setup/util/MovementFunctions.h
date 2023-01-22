@@ -1,5 +1,5 @@
 //Pure pursuit function (in progress)
-void movePath();
+void moveArc(double targetX, double targetY, double minError);
 
 void goForward(double amount);
 void goBackward(double amount);

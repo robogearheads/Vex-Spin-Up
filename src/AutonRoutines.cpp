@@ -13,19 +13,21 @@
 
 void RedRollerFront(){
     //Start flywheels
-    FW1.move_velocity(570);
-    FW2.move_velocity(570);
+    FW1.move_velocity(599);
+    FW2.move_velocity(599);
 
     //Roller
     goForwardPID(-1);
-    Intake.move_velocity(-190);
+    Roller.move_velocity(90);
     pros::delay(250);
-    Intake.move_velocity(150);
+    Roller.move_velocity(0);
     goForwardPID(1);
 
     //Shoot first two
     turnPID(-5);
-    Intake.move_velocity(-90);
+    Intake.move_velocity(0);
+    pros::delay(100);
+    Intake.move_velocity(-190);
     pros::delay(2500);
     Intake.move_velocity(0);
 
@@ -33,17 +35,17 @@ void RedRollerFront(){
     FW1.move_velocity(350);
     FW2.move_velocity(350);
     goForwardPID(2);
-    turnPID(50);
-    Intake.move_velocity(190);
+    turnPID(48);
+    Intake.move_velocity(199);
     goForwardPID(29);
     forwardForDistance(20, 100);
 
     //Aim and Shoot next disks
-    FW1.move_velocity(500);
-    FW2.move_velocity(500);
-    turnPID(-41);
-    pros::delay(100);
-    Intake.move_velocity(-130);
+    FW1.move_velocity(520);
+    FW2.move_velocity(520);
+    turnPID(-42);
+    pros::delay(500);
+    Intake.move_velocity(-180);
     pros::delay(5000);
 
     //Stop all motors
@@ -54,23 +56,22 @@ void RedRollerFront(){
 
 void RedRollerSide(){
     //Start flywheels
-    FW1.move_velocity(570);
-    FW2.move_velocity(570);
+    FW1.move_velocity(590);
+    FW2.move_velocity(590);
 
     //Rollers
-    goForwardPID(-15);
+    goForwardPID(-20);
     turnPID(0);
-    goForwardPID(-2);
-    Intake.move_velocity(-190);
+    goForwardPID(-3);
+    Roller.move_velocity(90);
     pros::delay(200);
-    goForwardPID(2);
-    Intake.move_velocity(150);
+    Roller.move_velocity(0);
+    goForwardPID(3);
 
     //Shoot
-    Intake.move_velocity(0);
-    turnPID(7);
-    Intake.move_velocity(-90);
-    pros::delay(2000);
+    turnPID(10);
+    Intake.move_velocity(-120);
+    pros::delay(3000);
     Intake.move_velocity(0);
     FW1.move_velocity(300);
     FW2.move_velocity(300);
@@ -79,14 +80,14 @@ void RedRollerSide(){
     Intake.move_velocity(190);
     turnPID(-47);
     //goForwardPID(60);
-    forwardForDistance(65, 250);
+    forwardForDistance(60, 275);
 
     //Aim and Shoot next disks
-    FW1.move_velocity(500);
-    FW2.move_velocity(500);
-    turnPID(47.5);
-    pros::delay(100);
-    Intake.move_velocity(-130);
+    FW1.move_velocity(470);
+    FW2.move_velocity(470);
+    turnPID(45);
+    pros::delay(500);
+    Intake.move_velocity(-199);
     pros::delay(5000);
 
     //Stop all motors
@@ -155,21 +156,60 @@ void BlueSinglePlayer(){
 }
 
 void Skills(){
-    FW1.move_velocity(570);
-    FW2.move_velocity(570);
-    pros::delay(3000);
-    Intake.move_velocity(-150);
-    pros::delay(4000);
-    FW1.move_velocity(0);
-    FW2.move_velocity(0);
-    turnPID(0);
-    goForwardPID(-2);
-    pros::delay(1000);
+    //Start flywheels
+    FW1.move_velocity(450);
+    FW2.move_velocity(450);
+
+    //Roller
+    goForwardPID(-1);
+    Roller.move_velocity(90);
+    pros::delay(550);
+    Roller.move_velocity(0);
+    goForwardPID(1);
+
+    //Shoot first two
+    turnPID(-5);
+    goForwardPID(24);
     Intake.move_velocity(0);
-    forwardForDistance(1, 200);
-    turnPID(-45);
-    goForwardPID(10);
+    Intake.move_velocity(-90);
+    pros::delay(2500);
+    Intake.move_velocity(0);
+    goForwardPID(-24);
+
+    //Move to and intake next disks
+    FW1.move_velocity(350);
+    FW2.move_velocity(350);
+    goForwardPID(2);
+    turnPID(50);
+    Intake.move_velocity(190);
+    goForwardPID(29);
+    forwardForDistance(20, 100);
+
+    //Aim and Shoot next disks
+    FW1.move_velocity(500);
+    FW2.move_velocity(500);
+    turnPID(-41);
+    pros::delay(100);
+    Intake.move_velocity(-130);
+    pros::delay(5000);
+
+    //Stop all motors
+    Intake.move_velocity(0);
+    FW1.move_velocity(0);
+    FW2.move_velocity(0);    
+
+    turnPID(50);
+    goForwardPID(-43);
+    turnPID(90);
+    goForwardPID(30);
+    Roller.move_velocity(90);
+    pros::delay(500);
+    Roller.move_velocity(0);
+    goForwardPID(18);
     turnPID(45);
+
+    pros::delay(1000);
+
     Expansion1.set_value(true);
     Expansion2.set_value(true);
 
