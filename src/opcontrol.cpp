@@ -31,7 +31,7 @@ void opcontrol() {
   // Start tasks
   pros::Task Odometry(odometry);
   // pros::Task PurePursuit(pure_pursuit_step);
-  bool flywheel_stopped = true;
+  bool flywheel_stopped = false;
 
 
   while (1) {
@@ -48,8 +48,8 @@ void opcontrol() {
     else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
       flywheel_stopped = false;
       Intake.move_velocity(-195);
-      FW1.move_velocity(330);
-      FW2.move_velocity(330);
+      FW1.move_velocity(337);
+      FW2.move_velocity(337);
     }
     else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
       FW1.move_velocity(0);
@@ -74,7 +74,7 @@ void opcontrol() {
       Intake.move_velocity(0);
       Roller.move_velocity(0);
     }
-
+/*
     if(controller.get_digital(DIGITAL_DOWN)){
       moveArc(0, 0, 3);
     }
@@ -82,7 +82,7 @@ void opcontrol() {
     if(controller.get_digital(DIGITAL_UP)){
       setPosition(0, 0, 0);
     }
-
+*/
     /*
     //Basic shooting
     if (controller.get_digital((pros::E_CONTROLLER_DIGITAL_R2))) {
@@ -109,8 +109,8 @@ void opcontrol() {
     pros::lcd::print(0, "x is %f", x);
     pros::lcd::print(1, "y is %f", y);
     pros::lcd::print(2, "heading is %f", heading * 180 / 3.14159265359);
-    //pros::lcd::print(3, "temp 1 is %f", FW1.get_temperature());
-    //pros::lcd::print(4, "temp 2 is %f", FW2.get_temperature());
+    pros::lcd::print(3, "speed 1 is %f", FW1.get_actual_velocity());
+    pros::lcd::print(4, "speed 2 is %f", FW2.get_actual_velocity());
     //pros::lcd::print(5, "intake temp is %f", Intake.get_temperature());
 
 

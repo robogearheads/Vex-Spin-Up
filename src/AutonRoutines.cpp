@@ -13,13 +13,13 @@
 
 void RedRollerFront(){
     //Start flywheels
-    FW1.move_velocity(599);
-    FW2.move_velocity(599);
+    FW1.move_voltage(11990);
+    FW2.move_voltage(11990);
 
     //Roller
-    goForwardPID(-1);
     Roller.move_velocity(90);
-    pros::delay(250);
+    goForwardPID(-1);
+    pros::delay(200);
     Roller.move_velocity(0);
     goForwardPID(1);
 
@@ -27,8 +27,21 @@ void RedRollerFront(){
     turnPID(-5);
     Intake.move_velocity(0);
     pros::delay(100);
-    Intake.move_velocity(-190);
-    pros::delay(2500);
+/*
+    double shoot_counter = 0;
+    while(shoot_counter < 80){
+        if(FW1.get_actual_velocity() > 570 && FW2.get_actual_velocity() > 570){
+            Intake.move_velocity(-190);
+        }
+        else{
+            Intake.move_velocity(0);
+        }
+        shoot_counter ++;
+        pros::delay(25);
+    }
+*/
+    Intake.move_velocity(-90);
+    pros::delay(1000);
     Intake.move_velocity(0);
 
     //Move to and intake next disks
@@ -38,13 +51,13 @@ void RedRollerFront(){
     turnPID(48);
     Intake.move_velocity(199);
     goForwardPID(29);
-    forwardForDistance(20, 100);
+    forwardForDistance(20, 250);
 
     //Aim and Shoot next disks
-    FW1.move_velocity(520);
-    FW2.move_velocity(520);
+    FW1.move_voltage(11900);
+    FW2.move_voltage(11900);
     turnPID(-42);
-    pros::delay(500);
+    pros::delay(700);
     Intake.move_velocity(-180);
     pros::delay(5000);
 
@@ -56,22 +69,22 @@ void RedRollerFront(){
 
 void RedRollerSide(){
     //Start flywheels
-    FW1.move_velocity(590);
-    FW2.move_velocity(590);
+    FW1.move_voltage(11990);
+    FW2.move_voltage(11990);
 
     //Rollers
     goForwardPID(-20);
     turnPID(0);
-    goForwardPID(-3);
+    goForwardPID(-4);
     Roller.move_velocity(90);
-    pros::delay(200);
+    pros::delay(250);
     Roller.move_velocity(0);
-    goForwardPID(3);
+    goForwardPID(4);
 
     //Shoot
-    turnPID(10);
+    turnPID(7);
     Intake.move_velocity(-120);
-    pros::delay(3000);
+    pros::delay(1000);
     Intake.move_velocity(0);
     FW1.move_velocity(300);
     FW2.move_velocity(300);
@@ -83,8 +96,8 @@ void RedRollerSide(){
     forwardForDistance(60, 275);
 
     //Aim and Shoot next disks
-    FW1.move_velocity(470);
-    FW2.move_velocity(470);
+    FW1.move_voltage(11900);
+    FW2.move_voltage(11900);
     turnPID(45);
     pros::delay(500);
     Intake.move_velocity(-199);
@@ -97,6 +110,61 @@ void RedRollerSide(){
 }
 
 void RedSinglePlayer(){
+    //Roller
+    //goForwardPID(-1);
+    Roller.move_velocity(99);
+    pros::delay(100);
+    LF.move_velocity(-300);
+    LB.move_velocity(-300);
+    RF.move_velocity(-300);
+    RB.move_velocity(-300);
+    pros::delay(400);
+    LF.move_velocity(0);
+    LB.move_velocity(0);
+    RF.move_velocity(0);
+    RB.move_velocity(0);
+    Roller.move_velocity(0);
+    goForwardPID(3);
+
+    //Move to and intake next disks
+    FW1.move_velocity(350);
+    FW2.move_velocity(350);
+    goForwardPID(2);
+    turnPID(50);
+    Intake.move_velocity(199);
+    goForwardPID(30);
+    forwardForDistance(19, 250);
+    //moveArc(40, 37, 5);
+
+    //Aim and Shoot next disks
+    FW1.move_voltage(11900);
+    FW2.move_voltage(11900);
+    turnPID(-42);
+    pros::delay(500);
+    Intake.move_velocity(-199);
+    pros::delay(2000);
+
+    //Cross field
+    Intake.move_velocity(180);
+    turnPID(36.5);
+    goForwardPID(65);
+    turnPID(-90);
+
+    //Roller
+    goForwardPID(-5);
+    Roller.move_velocity(90);
+    LF.move_velocity(-200);
+    LB.move_velocity(-200);
+    RF.move_velocity(-200);
+    RB.move_velocity(-200);
+    pros::delay(850);
+    LF.move_velocity(0);
+    LB.move_velocity(0);
+    RF.move_velocity(0);
+    RB.move_velocity(0);
+    Roller.move_velocity(0);
+    goForwardPID(1);
+
     /*
     Spin roller
     Move back a tiny bit
@@ -161,9 +229,9 @@ void Skills(){
     FW2.move_velocity(450);
 
     //Roller
-    goForwardPID(-1);
     Roller.move_velocity(90);
-    pros::delay(550);
+    goForwardPID(-1);
+    pros::delay(450);
     Roller.move_velocity(0);
     goForwardPID(1);
 
@@ -182,8 +250,8 @@ void Skills(){
     goForwardPID(2);
     turnPID(50);
     Intake.move_velocity(190);
-    goForwardPID(29);
-    forwardForDistance(20, 100);
+    goForwardPID(30);
+    forwardForDistance(19, 100);
 
     //Aim and Shoot next disks
     FW1.move_velocity(500);
@@ -201,9 +269,9 @@ void Skills(){
     turnPID(50);
     goForwardPID(-43);
     turnPID(90);
-    goForwardPID(30);
     Roller.move_velocity(90);
-    pros::delay(500);
+    goForwardPID(-30);
+    pros::delay(400);
     Roller.move_velocity(0);
     goForwardPID(18);
     turnPID(45);
