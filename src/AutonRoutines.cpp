@@ -27,19 +27,6 @@ void RedRollerFront(){
     turnPID(-5);
     Intake.move_velocity(0);
     pros::delay(100);
-/*
-    double shoot_counter = 0;
-    while(shoot_counter < 80){
-        if(FW1.get_actual_velocity() > 570 && FW2.get_actual_velocity() > 570){
-            Intake.move_velocity(-190);
-        }
-        else{
-            Intake.move_velocity(0);
-        }
-        shoot_counter ++;
-        pros::delay(25);
-    }
-*/
     Intake.move_velocity(-90);
     pros::delay(1000);
     Intake.move_velocity(0);
@@ -111,7 +98,6 @@ void RedRollerSide(){
 
 void RedSinglePlayer(){
     //Roller
-    //goForwardPID(-1);
     Roller.move_velocity(99);
     pros::delay(100);
     LF.move_velocity(-300);
